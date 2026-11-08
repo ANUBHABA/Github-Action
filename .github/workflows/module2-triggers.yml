@@ -1,0 +1,31 @@
+name: Module 2 - Triggers
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build application
+        run: echo "Build completed"
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute tests
+        run: echo "Testing started"
+
+  report:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate report
+        run: echo "Report generated"
