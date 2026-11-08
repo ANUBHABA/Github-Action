@@ -2,7 +2,8 @@ name: Module 3 - Advanced Basics
 
 on:
   workflow_dispatch:
-
+  
+    
 env:
   TEST_ENV: QA
   BROWSER: Chrome
