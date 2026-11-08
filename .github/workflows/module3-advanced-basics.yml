@@ -1,0 +1,49 @@
+name: Module 3 - Advanced Basics
+
+on:
+  workflow_dispatch:
+
+env:
+  TEST_ENV: QA
+  BROWSER: Chrome
+
+jobs:
+  automation:
+    runs-on: ubuntu-latest
+
+    outputs:
+      test_result: ${{ steps.test.outputs.result }}
+
+    steps:
+      - name: Display workflow information
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Event: ${{ github.event_name }}"
+
+      - name: Display environment configuration
+        run: |
+          echo "Environment: $TEST_ENV"
+          echo "Browser: $BROWSER"
+
+      - name: Generate test result
+        id: test
+        run: echo "result=PASSED" >> "$GITHUB_OUTPUT"
+
+      - name: Set environment variable
+        run: echo "EXECUTION_STATUS=COMPLETED" >> "$GITHUB_ENV"
+
+      - name: Read environment variable
+        run: |
+          echo "Execution: $EXECUTION_STATUS"
+
+  report:
+    needs: automation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate report summary
+        run: |
+          echo "QA Environment: ${{ env.TEST_ENV }}"
+          echo "Test Result: ${{ needs.automation.outputs.test_result }}"
+          echo "Report generated successfully"
