@@ -17,14 +17,14 @@ jobs:
         run: echo "Build completed"
 
   test:
-    needs: build
+    # needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Execute tests
         run: echo "Testing started"
 
   report:
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Generate report
